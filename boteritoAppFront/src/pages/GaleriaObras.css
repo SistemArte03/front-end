@@ -1,0 +1,388 @@
+/* Contenedor general */
+.galeria-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.title {
+  color: white; /* cambia a blanco */
+}
+
+
+.btn-regresar {
+  position: fixed; /* fijo respecto a la ventana */
+  top: 16px;
+  left: 16px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: rgba(29, 78, 216, 0.9);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex; /* importante */
+  align-items: center;
+  justify-content: center;
+  width: auto; /* no ocupe todo el ancho */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  z-index: 1000; /* arriba de todo */
+}
+
+.btn-regresar:hover {
+  background: rgba(37, 99, 235, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-regresar:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+
+/* Grid tipo “masonry simple” con tarjetas de tamaño fijo */
+.cards {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  justify-content: center;
+}
+
+/* Tarjeta */
+.card {
+  position: relative;
+  width: 240px;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fafafa;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12), inset 0 0 5px rgba(0,0,0,0.03);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+
+/* Información (título/autor) con degradado */
+.card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  color: #fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  text-shadow: 0 1px 5px rgba(0,0,0,0.7);
+}
+
+
+.card-info .title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card-info .author {
+  margin: 3px 0 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+
+/* Botones flotantes (like/comentar) visibles al hover */
+.actions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card:hover .actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botón circular */
+.circle-btn {
+  position: relative; /* <- esto es lo que falta */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.circle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.anim-heart {
+  animation: heartBeat 0.5s ease;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+
+
+/* Contador (badge) */
+.circle-btn .count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #e63946;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 999px;
+  line-height: 1;
+  padding: 3px 6px;
+}
+
+/* Estado vacío / mensajes */
+.empty {
+  color: #666;
+  font-size: 14px;
+  padding: 16px;
+}
+
+
+
+/* Responsivo: tarjetas más grandes en móviles para aprovechar ancho */
+@media (max-width: 640px) {
+  .card {
+    width: 44vw;
+    height: 58vw;
+    max-width: 260px;
+    max-height: 340px;
+  }
+}
+
+/* --- Modal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  transform: scale(0.9);
+  opacity: 0;
+  animation: modalAppear 0.3s forwards;
+}
+
+@keyframes modalAppear {
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+.modal-content {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.modal-left, .modal-right {
+  flex: 1 1 45%;
+}
+
+.modal-left {
+  position: relative; /* contenedor relativo para que el <p> se posicione dentro */
+}
+
+.modal-left .modal-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px; /* opcional, bordes redondeados */
+}
+
+.modal-left .rating {
+  position: absolute;
+  top: 8px;       /* distancia desde arriba */
+  left: 8px;      /* distancia desde la izquierda */
+  background: rgba(0, 0, 0, 0.6); /* fondo semitransparente para destacar */
+  color: #fff;     /* texto blanco */
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+
+.star-rating {
+  display: flex;
+  gap: 4px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star {
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: gold;
+}
+
+
+.modal-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.modal-right h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.modal-right .author {
+  font-weight: bold;
+  font-size: 14px;
+  color: #555;
+}
+
+.modal-right .desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between; /* calificación a la izquierda, botón a la derecha */
+  align-items: center;
+  margin-bottom: 1rem; /* opcional, espacio abajo */
+}
+
+
+
+
+.modal-actions button {
+  background: #f5f5f5;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-actions button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+
+
+.comments-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+.comment-box .send-btn {
+  cursor: pointer;
+  color: blue;
+  transition: transform 0.2s ease;
+}
+
+.comment-box .send-btn:hover {
+  transform: scale(1.2);
+  color: #e63946;
+}
+
+.modal-comments {
+  flex: 1 1 100%;   /* Ocupa todo el ancho */
+  margin-top: 20px;
+}
+
+.comments-list {
+  max-height: 220px;
+  overflow-y: auto;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  padding-right: 6px;
+}
+
+.comment-box {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comment-box input {
+  flex: 1;
+  padding: 8px;
+}
+
+.comment {
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+
+

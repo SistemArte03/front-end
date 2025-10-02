@@ -1,0 +1,502 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+}
+
+/* ====== NAVBAR MEJORADO ====== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  /* un poco más alto */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  /* más padding horizontal */
+
+  /* fondo sólido con degradado */
+  background: linear-gradient(90deg, #ffffff 0%, #f6f6f6 100%);
+
+  color: #222;
+  z-index: 1100;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 1.4rem;
+  /* más espacio entre items */
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li {
+  cursor: pointer;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.25s ease, border-bottom 0.25s ease;
+}
+
+.navbar li:hover {
+  color: #000;
+}
+
+.navbar li.active {
+  color: #000;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+}
+
+.app-title {
+  color: #111;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.3px;
+}
+
+/* Botón ingresar con estilo pill */
+.btn-ingresar {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #000, #333);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+
+.btn-ingresar:hover {
+  background: linear-gradient(135deg, #111, #444);
+  transform: translateY(-2px);
+}
+
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menu-icon {
+  color: var(--color-text-primary);
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 220px;
+  height: 100%;
+  padding: 1rem;
+  z-index: 2100;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar li:hover {
+  background-color: #f1f1f1;
+  border-radius: 4px;
+  padding-left: 8px;
+}
+
+.main {
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+  /* 👈 asegura que ocupe toda la pantalla */
+  margin: 0;
+  /* 👈 evita espacios */
+  padding: 0;
+  /* 👈 evita espacios */
+  overflow: hidden;
+  /* 👈 evita barras raras */
+}
+
+.info-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 45vh;
+  width: 250px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 2000;
+  /* 👈 más alto que el carrusel */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 80px;
+}
+
+
+/* Asegura que el contenido debajo no reciba margen extra */
+.home-container>.navbar+main,
+.home-container>.navbar+* {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* ---------- MAP (ocupa TODO el main) ---------- */
+.map-background {
+  position: absolute !important;
+  inset: 0;
+  /* top:0; right:0; bottom:0; left:0; */
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0;
+}
+
+.popup-content {
+  background-color: #fff;
+  /* fondo blanco */
+  padding: 10px 15px;
+  /* espacio interno */
+  border-radius: 10px;
+  /* bordes redondeados */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  /* sombra suave */
+  text-align: center;
+  /* centrar texto */
+  font-family: Arial, sans-serif;
+  max-width: 200px;
+}
+
+.popup-content strong {
+  color: #333;
+  font-size: 16px;
+}
+
+.popup-content img {
+  display: block;
+  margin: 5px auto 0;
+}
+
+
+/* ---------- CAROUSEL (fijo al fondo, con height) ---------- */
+.carousel-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  z-index: 1050;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+
+
+.ver-galeria-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;          /* ❌ quita el margin que lo saca */
+  padding: 8px 0;     /* ✔ usa padding interno */
+  position: absolute; /* ✔ lo fijamos dentro del carrusel */
+  bottom: 8px;        /* ✔ lo pegamos al fondo del carrusel */
+  left: 50%;          /* ✔ centrado horizontal */
+  transform: translateX(-50%);
+}
+
+
+.btn-ver-galeria {
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 54px;   /* ✔ un poco más grande */
+  height: 54px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+
+.btn-ver-galeria:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+
+
+/* slider/imagenes dentro del carrusel */
+.slider {
+  display: flex;
+  transition: transform 0.45s ease;
+  height: 100%;
+  align-items: center;
+  width: 100%;
+}
+
+.slide-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 0 0 100%;
+  width: 100%;
+}
+
+.slide-group img {
+  height: 160px;
+  max-width: 22%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Si quieres que los items estén centrados cuando no hay suficientes */
+.slide-group {
+  gap: 24px;
+  justify-content: center;
+}
+
+
+.slide-group img:hover {
+  transform: scale(1.05);
+}
+
+
+.sidebar-filtros {
+  margin-top: 8px;
+  padding-left: 10px;
+}
+
+.filtro {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.filtro label {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.filtro select {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.filter-select-container {
+  padding: 10px 0 15px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-select-container label {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.filter-select-container select {
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.map-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* 👈 esto hace que ocupe todo el .main */
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.filter-section label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.filter-section select {
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+
+
+
+/* sección izquierda: icono y links */
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  /* espaciamiento más pequeño */
+}
+
+.menu-icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  /* si usas lucide, se respetará su size; ajusta si es necesario */
+}
+
+/* sección derecha: título + botón, alineados */
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* título más pequeño y compacto */
+.app-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  /* más pequeño */
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+}
+
+/* Elimina cualquier margen del main debajo de la navbar */
+.home-container>.navbar+main,
+.home-container>.navbar+* {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Contenedor de cada imagen */
+.image-clickable {
+  flex: 1 1 25%; /* 4 imágenes por fila */
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Imagenes dentro del carrusel */
+.image-clickable img {
+  width: 100%;
+  max-width: 220px;   /* 🔹 Tamaño máximo fijo */
+  height: 180px;      /* 🔹 Alto fijo para uniformidad */
+  object-fit: cover;  /* 🔹 Recorta para que no se deformen */
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.image-clickable img:hover {
+  transform: scale(1.05);
+}
+
+/* Grupo de imágenes (slide) */
+.slide-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* separación entre imágenes */
+}
+
+

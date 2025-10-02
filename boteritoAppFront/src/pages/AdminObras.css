@@ -1,0 +1,336 @@
+/* =======================
+   AdminObras.css (limpio)
+   ======================= */
+
+/* ====== Contenedor general ====== */
+.admin-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+/* ====== Navbar ====== */
+/* Nota: position + z-index para controlar stacking */
+.admin-container .navbar {
+  background: #2c3e50;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  position: relative; /* importante para z-index */
+  z-index: 1;      /* más bajo que el modal */
+}
+
+/* corrección del selector (antes estaba mal escrito) */
+.admin-container .navbar .left-section {
+  display: flex;
+  align-items: center;
+}
+
+.admin-container .navbar .menu-icon {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.admin-container .navbar nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-container .navbar nav ul li {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.admin-container .navbar nav ul li.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ====== Sidebar (overlay del menú) ====== */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  z-index: 1500; /* por debajo del modal overlay */
+}
+
+.sidebar {
+  width: 220px;
+  background: #fff;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.sidebar ul li:hover {
+  background: #f1f1f1;
+}
+
+/* ====== Card y buscador ====== */
+.admin-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 250px;
+}
+
+/* ====== Tabla ====== */
+.table-container {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.admin-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  text-align: center;
+}
+
+.admin-table td {
+  background: #fff;
+}
+
+.admin-table tr:nth-child(even) td {
+  background-color: #fafafa;
+}
+
+/* ====== Estado de aprobación ====== */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status-aprobado {
+  background: #d4edda;
+  color: #27b548;
+  border: 1px solid #c3e6cb;
+}
+
+.status-pendiente {
+  background: #fff3cd;
+  color: #a07b0c;
+  border: 1px solid #ffeeba;
+}
+
+/* ====== Iconos / botones de acción en la tabla ====== */
+/* Contenedor */
+.acciones {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo común para iconos (usado en tus <Edit3 className="icon-btn edit" /> ) */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.14s ease, background 0.14s ease, box-shadow 0.14s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* hover y focus accesible */
+.icon-btn:hover,
+.icon-btn:focus {
+  transform: translateY(-2px);
+  background: rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  outline: none;
+}
+
+/* colores por acción (aplica al SVG del icono mediante color) */
+.icon-btn.edit { color: #0d6efd; }     /* azul */
+.icon-btn.accept { color: #28a745; }   /* verde */
+.icon-btn.reject { color: #dc3545; }   /* rojo */
+
+/* fallback para botones tipo texto en tabla (si los usas) */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 4px;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.12s;
+}
+
+.action-btn:hover { background: rgba(0,0,0,0.04); }
+
+/* ====== Modal (único bloque, sin duplicados) ====== */
+/* overlay: arriba de todo */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top/right/bottom/left: 0 */
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999; /* MUY ARRIBA para evitar problemas con navbar */
+}
+
+/* modal container */
+.modal {
+  position: relative;
+  z-index: 100000;
+  background: #fff;
+  border-radius: 12px;
+  width: min(900px, 94%);
+  padding: 22px 24px;
+  box-shadow: 0px 12px 36px rgba(0, 0, 0, 0.28);
+  animation: slideDown 0.28s ease;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+/* animación */
+@keyframes slideDown {
+  from { transform: translateY(-16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 20px;
+  color: #222;
+  text-align: left;
+}
+
+/* Grid para los campos del modal */
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Form groups */
+.form-group { display: flex; flex-direction: column; }
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: border-color .16s ease, box-shadow .12s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.06);
+  outline: none;
+}
+
+/* Responsivo modal form */
+@media (max-width: 768px) {
+  .modal-form { grid-template-columns: 1fr; }
+}
+
+/* ====== Botones del modal ====== */
+.modal-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Botón Guardar (save-btn) */
+.save-btn {
+  background: linear-gradient(135deg,#28a745,#218838);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(33,136,56,0.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s;
+}
+.save-btn:hover { transform: translateY(-2px); filter: brightness(.98); }
+
+/* Botón Cancelar (cancel-btn) */
+.cancel-btn {
+  background: linear-gradient(135deg,#f46b6b,#d63d3d);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(214,61,61,0.12);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s;
+}
+.cancel-btn:hover { transform: translateY(-2px); filter: brightness(.98); }
+
+/* accesibilidad: foco visible */
+.save-btn:focus, .cancel-btn:focus, .icon-btn:focus, .action-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.12);
+}
+
+/* ====== Estado de registro (alternativas) ====== */
+.status-registrado { background: #e2e3e5; color: #444; padding: 6px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+.status-validado   { background: #d4edda; color: #09ff42; padding: 6px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; }
+.status-rechazado  { background: #f8d7da; color: #ff0019; padding: 6px 10px; border-radius: 12px; font-size: 60px; font-weight: 600; }
