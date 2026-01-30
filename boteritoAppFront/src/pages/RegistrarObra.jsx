@@ -9,8 +9,8 @@ import L from "leaflet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+/*const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;*/
+const API_BASE_URL = ""
 // Ícono para el marcador
 const markerIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7/dist/images/marker-icon.png",

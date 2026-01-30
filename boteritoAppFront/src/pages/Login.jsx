@@ -4,7 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import "./Login.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+/*const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;*/
+const API_BASE_URL = "/auth/login"
+/*console.log(import.meta.env.VITE_API_BASE_URL);/*
+/*const API_BASE_URL = "http://192.168.1.241:8080";*/
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -20,7 +23,8 @@ export default function Login() {
     e.preventDefault();
     const email = e.target.email.value.trim().toLowerCase();
     const password = e.target.password.value.trim();
-
+    console.log(email);
+    console.log(password);	
     if (!email || !password) {
       setError("Por favor, completa todos los campos.");
       return;
@@ -28,13 +32,15 @@ export default function Login() {
 
     setError("");
     setLoading(true);
-
+    console.log(API_BASE_URL);
+    console.log(JSON.stringify({ email, password }));
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      /*const response = await fetch(`${API_BASE_URL}/auth/login`, {*/
+        const response = await fetch(`${API_BASE_URL}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
-        credentials: "include", // necesario
+        credentials: "include", // necesario 
       });
 
       const data = await response.json();

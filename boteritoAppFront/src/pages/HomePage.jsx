@@ -6,8 +6,8 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+/*const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;*/
+const API_BASE_URL = ""
 const HomePage = () => {
 
 
